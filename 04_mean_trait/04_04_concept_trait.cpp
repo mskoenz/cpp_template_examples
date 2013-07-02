@@ -23,19 +23,9 @@
 #include <iostream>
 #include <typeinfo>
 
-//=================== mean_trait_chooser ===================
-template<typename T, bool use_double>
-struct mean_trait_chooser {
-    typedef T type;
-};
-//------------------- partial specialsiation for nr == 1 -------------------
-template<typename T>
-struct mean_trait_chooser<T, true> {
-    typedef double type;
-};
 //=================== mean_type_identifier ===================
 template<typename T>
-struct mean_type_identifier {
+struct use_double_identifier {
     static T t;
     
     static char check(T);
@@ -45,8 +35,19 @@ struct mean_type_identifier {
 };
 //------------------- full specialisation -------------------
 template<>
-struct mean_type_identifier<double> {
-    enum {value = false}; //doesn't matter if true or false
+struct use_double_identifier<double> {
+    enum {value = true}; //doesn't matter if true or false
+};
+
+//=================== mean_trait_chooser ===================
+template<bool cond, typename T, typename F>
+struct meta_if {
+    typedef T type;
+};
+//------------------- partial specialsiation for true -------------------
+template<typename T, typename F>
+struct meta_if<false, T, F> {
+    typedef F type;
 };
 
 //=================== better_mean_trait ===================
@@ -54,12 +55,15 @@ template<typename T>
 struct better_mean_trait {
     typedef 
         typename 
-            mean_trait_chooser<T, mean_type_identifier<T>::value>::type
+            meta_if<use_double_identifier<T>::value
+                  , double
+                  , T
+        >::type
     type;
 };
 //=================== mean template attempt 3 ===================
 template<typename T>
-typename better_mean_trait<T>::type mean(T const & a, T const & b) {
+inline typename better_mean_trait<T>::type mean(T const & a, T const & b) {
     PRINT_YELLOW
     ("mean fct version " << TYPE(T) << " with arg " << a << " and " << b);
     return (a + b) / 2.0;
@@ -72,7 +76,16 @@ int main(int argc, char* argv[]) {
     CLR_SCR()
     PRINT_CYAN("press enter to continue")
     
-    WAIT_FOR_INPUT() //just hit the enter button to continue
+    WAIT_FOR_INPUT() //just hit the enter key to continue
+    PRINT_NAMED(use_double_identifier<int>::value)
+    WAIT_FOR_INPUT()
+    PRINT_NAMED(use_double_identifier<double>::value)
+    WAIT_FOR_INPUT()
+    PRINT_NAMED(use_double_identifier<uint>::value)
+    WAIT_FOR_INPUT()
+    PRINT_NAMED(use_double_identifier<long double>::value)
+    
+    WAIT_FOR_INPUT()
     PRINT_NAMED(mean(1, 2))
     
     WAIT_FOR_INPUT()
@@ -88,7 +101,8 @@ int main(int argc, char* argv[]) {
     PRINT_NAMED(mean(1lu, 2lu))
     
     WAIT_FOR_INPUT()
-    PRINT_GREEN("works for all types! \nrelays on the concept and not on actual names")
+    PRINT_GREEN("works for all types!")
+    PRINT_GREEN("relays on the concept and not on actual names")
     
     return 0;
 }

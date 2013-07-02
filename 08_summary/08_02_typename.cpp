@@ -1,6 +1,6 @@
 // Author:  Mario S. Könz <mskoenz@gmx.net>
-// Date:    26.06.2013 11:57:50 EDT
-// File:    01_04_runtime_prime.cpp
+// Date:    28.06.2013 22:15:37 EDT
+// File:    08_02_typename.cpp
 
 //========= some macros for nicer presentation (not essential) =========
 //use as litte macros as possible in c++ (most stuff can be solved without)
@@ -17,41 +17,43 @@
 #define PRINT_GREEN(x) std::cout << "\033[1;32m" << x << "\033[0m" << std::endl;
 #define PRINT_YELLOW(x) std::cout << "\033[1;33m" << x << "\033[0m" << std::endl;
 #define PRINT_MAGENTA(x) std::cout << "\033[1;35m" << x << "\033[0m" << std::endl;
-//all the \033... cmd are bash specific. See http://www.cplusplus.com/forum/unices/36461/ for details
-
 //=================== includes ===================
 #include <iostream>
-#include <typeinfo>
 
-//=================== prime finder ===================
-bool is_prime(int nr) {
-    for(int i = 2; i < nr; ++i) {//not optimal, I know...sqrt(nr)
-        if(nr % i == 0)
-            return false;
-    }
-    return true;
-}
+//typename is used for two purposes:
+
+//first: it's used when declearing templates and just says that whatever 
+//follows (T) is a type.
+template<typename T>
+struct my_template {
+    typedef int int_type;
+};
+
+//second: to extract types that are inside a template struct/class and 
+//depend somehow on the template parameter (dependent scope)
+//basically the following pattern ....<T>...::some_type
+template<typename T>
+struct my_second_template {
+    typedef typename my_template<T>::int_type second_int_type;
+    //i need typename here because int_type is inside a struct that depends
+    //on the template parameter T. Just remove typename to see the error
+};
 
 //  +---------------------------------------------------+
 //  |                   main                            |
 //  +---------------------------------------------------+
 int main(int argc, char* argv[]) {
-    CLR_SCR()
-    PRINT_CYAN("press enter to continue")
     
-    //~ int const n = 10;
-    int const n = 100;
+    //no need for typename here, since there is no unknown T-dependency
+    //T==int an all is good :-)
+    my_template<int>::int_type nr1 = 0;
     
-    int res = 0;
-    for(int i = n; i > 2; --i) {
-        if(is_prime(i)) {
-            res = i;
-            break;
-        }
-        WAIT_FOR_INPUT() //just hit the enter key to continue
-        PRINT_RED(i << " is not prime")
-    }
-    WAIT_FOR_INPUT()
-    PRINT_GREEN(res << " is the biggest prime <= " << n)
+    //same here
+    my_second_template<int>::second_int_type nr2 = 0;
+    
+    PRINT_GREEN(nr1)
+    PRINT_GREEN(nr2)
+    
     return 0;
 }
+

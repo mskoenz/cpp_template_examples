@@ -1,6 +1,6 @@
 // Author:  Mario S. Könz <mskoenz@gmx.net>
-// Date:    26.06.2013 20:39:46 EDT
-// File:    03_03_type_deduction.cpp
+// Date:    26.06.2013 22:23:09 EDT
+// File:    introduction.cpp
 
 //========= some macros for nicer presentation (not essential) =========
 //use as litte macros as possible in c++ (most stuff can be solved without)
@@ -11,7 +11,6 @@
 #define WAIT_FOR_INPUT() while(std::cin.gcount() == 0) std::cin.get(); std::cin.get();
 #define ASSERT_MSG(cond, msg) if(cond) {PRINT_RED(msg); throw std::runtime_error("error");}
 #define PRINT_NAMED(x) std::cout << #x << " = " << x << std::endl; //#x changes the variable name into a string "x"
-#define PRINT_CALL(x) std::cout << #x << ": "; x;
 #define PRINT_RED(x) std::cout << "\033[1;31m" << x << "\033[0m" << std::endl; 
 #define PRINT_BLUE(x) std::cout << "\033[1;34m" << x << "\033[0m" << std::endl;
 #define PRINT_CYAN(x) std::cout << "\033[1;36m" << x << "\033[0m" << std::endl;
@@ -24,52 +23,54 @@
 #include <iostream>
 #include <typeinfo>
 
-//=================== template struct ===================
-template<typename T>
-struct my_template {
-    template<typename U>
-    void print(U const & t) {
-        PRINT_RED("T = " << TYPE(T) << ", U = " << TYPE(U) << ", val = " << t)
-    }
-};
-
-//=================== template function ===================
-template<typename T>
-void print_deduce(T const & t) {
-    PRINT_YELLOW("T = " << TYPE(T) << ", val = " << t)
-}
-
-template<typename T>
-void print_no_deduce(int const & t) {
-    PRINT_GREEN("T = " << TYPE(T) << ", val = " << t)
-}
 //  +---------------------------------------------------+
 //  |                   main                            |
 //  +---------------------------------------------------+
 int main(int argc, char* argv[]) {
     CLR_SCR()
-    PRINT_CYAN("press enter to continue")
+    WAIT_FOR_INPUT() //just hit the enter button to continue
     
-    my_template<int> t; //<int> is mandatory. the compiler has no chance guess the type
-    
-    WAIT_FOR_INPUT() //just hit the enter key to continue
-    PRINT_CALL(print_deduce(1.5)) //type deduction works 1.5 is int -> T = double
-    
+    PRINT_GREEN("  name:           Mario Könz")
     WAIT_FOR_INPUT()
-    PRINT_CALL(print_deduce<int>(1.5)); //is also fine, but 1.5 will be converted to int
-    
-    //~ PRINT_CALL(print_no_deduce(1.5)) //doesn't work since the compiler cannot do type deduction
+    PRINT_GREEN("  study:          interdisciplinary science ETH Zuerich")
     WAIT_FOR_INPUT()
-    PRINT_CALL(print_no_deduce<double>(1.5))
-    
+    PRINT_GREEN("  main subject:   physics and computational science")
     WAIT_FOR_INPUT()
-    PRINT_CALL(t.print(1.5))
-    
+    PRINT_GREEN("  c++ experience: 3 semesters programming techniques with Matthias Troyer")
+    PRINT_GREEN("                  worked 2 years on the ALPS library")
     WAIT_FOR_INPUT()
-    PRINT_CALL(t.print(1))
-    
+    PRINT_GREEN("  why am I here:  writing my master-thesis with Roger Melko")
     WAIT_FOR_INPUT()
-    PRINT_CALL(t.print<float>(1))
+    CLR_SCR()
+    WAIT_FOR_INPUT()
+    PRINT_YELLOW("  content")
+    WAIT_FOR_INPUT()
+    PRINT_YELLOW("  1: demonstration/polymorphism")
+    WAIT_FOR_INPUT()
+    PRINT_YELLOW("  2: template motivation")
+    WAIT_FOR_INPUT()
+    PRINT_YELLOW("  3: template basics")
+    WAIT_FOR_INPUT()
+    PRINT_YELLOW("  4: mean trait")
+    WAIT_FOR_INPUT()
+    PRINT_YELLOW("  5: central mechanism: SFINAE")
+    WAIT_FOR_INPUT()
+    PRINT_YELLOW("  6: pitfalls")
+    WAIT_FOR_INPUT()
+    PRINT_YELLOW("  7: concept programming")
+    WAIT_FOR_INPUT()
+    PRINT_YELLOW("  8: summary")
+    WAIT_FOR_INPUT()
+    CLR_SCR()
+    WAIT_FOR_INPUT()
+    PRINT_YELLOW("  majority of the examples works without c++0x")
+    WAIT_FOR_INPUT()
+    PRINT_YELLOW("  those few examples that need c++0x can also be realised with just boost")
+    WAIT_FOR_INPUT()
+    PRINT_YELLOW("  all examples are available on GitHub")
+    PRINT_YELLOW("  https://github.com/mskoenz/cpp_template_examples")
+    WAIT_FOR_INPUT()
+    PRINT_RED("  ask questions if you don't get something!")
     
-    return 0;
+    return 42;
 }

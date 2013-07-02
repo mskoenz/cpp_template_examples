@@ -29,7 +29,7 @@ struct has_print_method {
     
     template<void(T::*)(void)> //specify the exact signature here
     struct helper {
-        typedef char type;
+        typedef int type;
     };
     
     template<typename U>
@@ -61,7 +61,7 @@ int main(int argc, char* argv[]) {
     CLR_SCR()
     PRINT_CYAN("press enter to continue")
     
-    WAIT_FOR_INPUT() //just hit the enter button to continue
+    WAIT_FOR_INPUT() //just hit the enter key to continue
     PRINT_NAMED(has_print_method<foo>::value);
     
     WAIT_FOR_INPUT()

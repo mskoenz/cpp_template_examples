@@ -46,10 +46,10 @@ void print(T * i, U b) {
     PRINT_CYAN("base template pointer")
 }
 //full specialisation of template pointer
-template<>
-void print<>(int * i, bool b) {
-    PRINT_CYAN("spec template pointer")
-}
+//~ template<>
+//~ void print<>(int * i, bool b) {
+    //~ PRINT_CYAN("spec template pointer")
+//~ }
 //=================== partial template function ===================
 //because of function overloading there is no partial specialisation
 //for functions. The following function can be seen as a partial
@@ -69,7 +69,7 @@ int main(int argc, char* argv[]) {
     
     int * i_ptr = NULL;
     
-    WAIT_FOR_INPUT() //just hit the enter button to continue
+    WAIT_FOR_INPUT() //just hit the enter key to continue
     PRINT_CALL(print(1, true))
     PRINT_GREEN("if there is a matching normal function it is always prefered")
     

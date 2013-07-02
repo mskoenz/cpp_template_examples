@@ -5,8 +5,6 @@
 #ifndef __03_01_HEADER_HEADER
 #define __03_01_HEADER_HEADER
 
-#define TYPE(T) typeid(T).name()
-#include <typeinfo>
 #include <iostream>
 
 class my_class {

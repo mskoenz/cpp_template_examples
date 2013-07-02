@@ -27,6 +27,8 @@
 //=================== template class ===================
 template<typename T, int N>
 class template_class {
+    static_assert(N%5==0, "template_class must fulfil N%5==0"); 
+    //only checked during compiletime. Doesn't realy matter where you put this
 public:
     typedef int size_type; //use typedefs to make later changes easy
     T & operator[](size_type const & index) {
@@ -39,16 +41,19 @@ public:
 private:
     T array_[N];
 };
+
 //=================== template function ===================
 template<typename T>
-void init_and_print(T & t) {
-    //typename is needed, since the compiler cannot know that T::size_type is a type
-    //it could just as well be a static variable.
-    //typename tells the compiler to treat the next expression as a type
-    for(typename T::size_type i = 0; i < t.size(); ++i)
+inline void init_and_print(T & t) {
+    typedef typename T::size_type size_type;
+    for(size_type i = 0; i < t.size(); ++i)
         t[i] = i + 0.1;
-    for(typename T::size_type i = 0; i < t.size(); ++i)
+    for(size_type i = 0; i < t.size(); ++i)
         PRINT_MAGENTA("t[" << i << "] = " << t[i])
+        
+    //typename is needed, since the compiler cannot know that T::size_type is
+    //a type it could just as well be a static variable.
+    //typename tells the compiler to treat the next expression as a type
     //this may look less nice than...
     //  for(uint i = 0; i < t.size(); ++i)...
     //...but it is generic. If size_type is changed to double this will still work
@@ -59,26 +64,20 @@ void init_and_print(T & t) {
 //  |                   main                            |
 //  +---------------------------------------------------+
 int main(int argc, char* argv[]) {
-    //needs c++0x bc of uint
+    //NEEDS -std=c++11 for uint
+    //just typedef unsigned int uint; to get rid of it
     CLR_SCR()
     PRINT_CYAN("press enter to continue")
     
-    WAIT_FOR_INPUT() //just hit the enter button to continue
-    //double_5_class d5;
+    WAIT_FOR_INPUT() //just hit the enter key to continue
     template_class<double, 5> d5;
     init_and_print(d5);
     
-    
-    
     WAIT_FOR_INPUT()
-    //double_10_class d10;
     template_class<double, 10> d10;
     init_and_print(d10);
     
-    
-    
     WAIT_FOR_INPUT()
-    //int_10_class i10;
     template_class<int, 10> i10;
     init_and_print(i10);
     

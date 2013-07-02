@@ -23,19 +23,19 @@
 #include <iostream>
 
 //=================== mean function ===================
-double mean(int const & a, int const & b) {
+inline double mean(int const & a, int const & b) {
     PRINT_RED("mean fct version int with arg " << a << " and " << b);
     return (a + b) / 2.0;
 }
 
 
-//~ double mean(double const & a, double const & b) {
+//~ inline double mean(double const & a, double const & b) {
     //~ PRINT_GREEN("mean fct version double with arg " << a << " and " << b);
     //~ return (a + b) / 2.0;
 //~ }
 
 
-//~ long double mean(long double const & a, long double const & b) {
+//~ inline long double mean(long double const & a, long double const & b) {
     //~ PRINT_MAGENTA("mean fct version long double with arg " << a << " and " << b);
     //~ return (a + b) / 2.0;
 //~ }
@@ -48,14 +48,14 @@ int main(int argc, char* argv[]) {
     CLR_SCR()
     PRINT_CYAN("press enter to continue")
     
-    WAIT_FOR_INPUT() //just hit the enter button to continue
+    WAIT_FOR_INPUT() //just hit the enter key to continue
     PRINT_NAMED(mean(1, 2))
     
     WAIT_FOR_INPUT()
-    //~ PRINT_NAMED(mean(1.8, 2.0))
+    PRINT_NAMED(mean(1.8, 2.0))
     
     WAIT_FOR_INPUT()
-    //~ PRINT_NAMED(mean(1.8l, 2.0l))
+    PRINT_NAMED(mean(1.8l, 2.0l))
     
     WAIT_FOR_INPUT()
     //~ PRINT_RED("        sizeof(int) =  " << sizeof(int) << " bytes")

@@ -25,9 +25,8 @@
 
 //=================== mean template attempt 1 ===================
 template<typename T>
-T mean(T const & a, T const & b) {
-    PRINT_YELLOW
-    ("mean fct version " << TYPE(T) << " with arg " << a << " and " << b);
+inline T mean(T const & a, T const & b) {
+    PRINT_YELLOW("mean fct version " << TYPE(T) << " with arg " << a << " and " << b);
     return (a + b) / 2.0;
 }
 
@@ -38,7 +37,7 @@ int main(int argc, char* argv[]) {
     CLR_SCR()
     PRINT_CYAN("press enter to continue")
     
-    WAIT_FOR_INPUT() //just hit the enter button to continue
+    WAIT_FOR_INPUT() //just hit the enter key to continue
     PRINT_NAMED(mean(1, 2))
     
     WAIT_FOR_INPUT()

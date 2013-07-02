@@ -62,14 +62,14 @@ private:
 //  |                   main                            |
 //  +---------------------------------------------------+
 int main(int argc, char* argv[]) {
-    //NEEDS -std=c++0x for uint
+    //NEEDS -std=c++11 for uint
     //just typedef unsigned int uint; to get rid of it
     CLR_SCR()
     PRINT_CYAN("press enter to continue")
     
-    WAIT_FOR_INPUT() //just hit the enter button to continue
+    WAIT_FOR_INPUT() //just hit the enter key to continue
     double_5_class d5;
-    
+    //~ d5[5] = 0;
     for(uint i = 0; i < 5; ++i)
         d5[i] = i + 0.1;
     

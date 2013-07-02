@@ -26,7 +26,10 @@
                     //and it doesn't cut into the performance (-DNDEBUG)
 
 //=================== template class ===================
-template<typename T, int N>
+//class, bool, integer-types, fct-ptr are ok
+//float types like double are not accepted
+
+template<typename T, int N> 
 class template_class {
 public:
     T & operator[](int const & index) {
@@ -41,12 +44,12 @@ private:
 //  |                   main                            |
 //  +---------------------------------------------------+
 int main(int argc, char* argv[]) {
-    //NEEDS -std=c++0x for uint
+    //NEEDS -std=c++11 for uint
     //just typedef unsigned int uint; to get rid of it
     CLR_SCR()
     PRINT_CYAN("press enter to continue")
     
-    WAIT_FOR_INPUT() //just hit the enter button to continue
+    WAIT_FOR_INPUT() //just hit the enter key to continue
     //double_5_class d5;
     template_class<double, 5> d5;
     

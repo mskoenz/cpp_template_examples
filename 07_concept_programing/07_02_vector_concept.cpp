@@ -38,12 +38,16 @@ public:
     my_vector(size_type const & N, T const & val): vec_(N, val) {}
     
     //copy ctor
-    template<typename U> //U needs to fulfil the vector concept
-    my_vector(U const & arg, typename std::enable_if<std::is_same<my_vector, U>::value, int>::type shadow = 1): vec_(arg.vec_) {
+    template<typename U>
+    my_vector(U const & arg
+            , typename std::enable_if<std::is_same<my_vector, U>::value, int>::type shadow = 1
+            ): vec_(arg.vec_) {
     }
     template<typename U> //U needs to fulfil the vector concept
-    my_vector(U const & arg, typename std::enable_if<!std::is_same<my_vector, U>::value and 
-                                                     !std::is_same<T, U>::value, int>::type shadow = 1) {
+    my_vector(U const & arg
+            , typename std::enable_if<!std::is_same<my_vector, U>::value and 
+                                      !std::is_same<T, U>::value, int>::type shadow = 1
+            ) {
         (*this) = arg;
     }
     //the second is_same<U, T> is needed in order not to conflict with the ctor(size_type, T)
@@ -60,11 +64,13 @@ public:
     
     //assignment
     template<typename U>
-    typename std::enable_if<std::is_same<my_vector, U>::value, my_vector>::type & operator=(U const & rhs) {
+    typename std::enable_if<std::is_same<my_vector, U>::value
+                          , my_vector>::type & operator=(U const & rhs) {
         vec_ = rhs.vec_;
     }
     template<typename U> //U needs to fulfil the vector concept
-    typename std::enable_if<!std::is_same<my_vector, U>::value, my_vector>::type & operator=(U const & rhs) {
+    typename std::enable_if<!std::is_same<my_vector, U>::value
+                          , my_vector>::type & operator=(U const & rhs) {
         vec_.resize(rhs.size());
         for(size_type i = 0; i < rhs.size(); ++i) {
             vec_[i] = rhs[i];
@@ -103,14 +109,14 @@ std::ostream & operator<<(std::ostream & os, my_vector<T> const & arg) {
 //  |                   main                            |
 //  +---------------------------------------------------+
 int main(int argc, char* argv[]) {
-    //NEEDS -std=c++0x for enable_if
+    //NEEDS -std=c++11 for enable_if
     CLR_SCR()
     PRINT_CYAN("press enter to continue")
     
     std::vector<char> std_vec(5, 'a');
     std::array<double, 20> std_array;
     
-    WAIT_FOR_INPUT() //just hit the enter button to continue
+    WAIT_FOR_INPUT() //just hit the enter key to continue
     PRINT_CALL(my_vector<int> int_vec(10, 1));
     PRINT_YELLOW(int_vec)
     

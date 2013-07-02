@@ -1,6 +1,6 @@
 // Author:  Mario S. Könz <mskoenz@gmx.net>
-// Date:    26.06.2013 11:57:50 EDT
-// File:    01_04_runtime_prime.cpp
+// Date:    02.07.2013 15:31:01 EDT
+// File:    08_09_partial_specialisation.cpp
 
 //========= some macros for nicer presentation (not essential) =========
 //use as litte macros as possible in c++ (most stuff can be solved without)
@@ -17,41 +17,45 @@
 #define PRINT_GREEN(x) std::cout << "\033[1;32m" << x << "\033[0m" << std::endl;
 #define PRINT_YELLOW(x) std::cout << "\033[1;33m" << x << "\033[0m" << std::endl;
 #define PRINT_MAGENTA(x) std::cout << "\033[1;35m" << x << "\033[0m" << std::endl;
-//all the \033... cmd are bash specific. See http://www.cplusplus.com/forum/unices/36461/ for details
-
 //=================== includes ===================
 #include <iostream>
-#include <typeinfo>
 
-//=================== prime finder ===================
-bool is_prime(int nr) {
-    for(int i = 2; i < nr; ++i) {//not optimal, I know...sqrt(nr)
-        if(nr % i == 0)
-            return false;
-    }
-    return true;
+//------------------- print pair -------------------
+//it's no problem to deduce T and U "through" the pair
+template<typename T, typename U>
+void print_pair(std::pair<T, U> const & p) {
+    PRINT_GREEN("(" << p.first << "/" << p.second << ")")
+}
+
+//-------------- partial specialisation for T == int ---------------
+template<typename U>
+void print_pair(std::pair<int, U> const & p) {
+    PRINT_RED("pairs with an integer in the first place cannot be printed")
 }
 
 //  +---------------------------------------------------+
 //  |                   main                            |
 //  +---------------------------------------------------+
 int main(int argc, char* argv[]) {
-    CLR_SCR()
     PRINT_CYAN("press enter to continue")
     
-    //~ int const n = 10;
-    int const n = 100;
+     
+    WAIT_FOR_INPUT()//just hit the enter key to continue
+    std::pair<int   , int   > p1(1  , 2  );
+    print_pair(p1); //the specialisation is used
     
-    int res = 0;
-    for(int i = n; i > 2; --i) {
-        if(is_prime(i)) {
-            res = i;
-            break;
-        }
-        WAIT_FOR_INPUT() //just hit the enter key to continue
-        PRINT_RED(i << " is not prime")
-    }
     WAIT_FOR_INPUT()
-    PRINT_GREEN(res << " is the biggest prime <= " << n)
+    std::pair<double, int   > p2(3.1, 4  );
+    print_pair(p2);
+    
+    WAIT_FOR_INPUT()
+    std::pair<int   , double> p3(5  , 6.1);
+    print_pair(p3); //the specialisation is used
+    
+    WAIT_FOR_INPUT()
+    std::pair<double, double> p4(7.1, 8.1);
+    print_pair(p4);
+    
     return 0;
 }
+

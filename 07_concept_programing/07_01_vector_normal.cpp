@@ -40,10 +40,7 @@ public:
     
     //assignment
     my_vector & operator=(my_vector const & rhs) {
-        vec_.resize(rhs.size());
-        for(size_type i = 0; i < rhs.size(); ++i) {
-            vec_[i] = rhs[i];
-        }
+        vec_ = rhs.vec_;
         return (*this);
     }
     //------------------- getter -------------------
@@ -78,20 +75,20 @@ std::ostream & operator<<(std::ostream & os, my_vector<T> const & arg) {
 //  |                   main                            |
 //  +---------------------------------------------------+
 int main(int argc, char* argv[]) {
-    //NEEDS -std=c++0x for std::array
+    //NEEDS -std=c++11 for std::array
     CLR_SCR()
     PRINT_CYAN("press enter to continue")
     
     std::vector<bool> std_vec(10);
     std::array<double, 10> std_array;
     
-    WAIT_FOR_INPUT() //just hit the enter button to continue
+    WAIT_FOR_INPUT() //just hit the enter key to continue
     my_vector<int> int_vec(10, 1);
     PRINT_YELLOW(int_vec)
     
     //~ my_vector<double> double_vec(int_vec);
     
-    //~ my_vector<bool> bool_vec(std_bool);
+    //~ my_vector<bool> bool_vec(std_vec);
     
     //~ double_vector = bool_vec;
     

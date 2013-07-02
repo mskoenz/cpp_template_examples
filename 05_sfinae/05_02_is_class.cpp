@@ -34,7 +34,7 @@ struct is_class {
     template<typename U>
     static char check(void(U::*)());
     template<typename U>
-    static double check(...); //just catch anything else
+    static double check(...); //just catch anything else (variadic function)
     
     enum { value = (sizeof(char) == sizeof(check<T>(NULL))) };
 };
@@ -63,7 +63,7 @@ int main(int argc, char* argv[]) {
     CLR_SCR()
     PRINT_CYAN("press enter to continue")
     
-    WAIT_FOR_INPUT() //just hit the enter button to continue
+    WAIT_FOR_INPUT() //just hit the enter key to continue
     class_check(foo_struct());
     
     WAIT_FOR_INPUT()

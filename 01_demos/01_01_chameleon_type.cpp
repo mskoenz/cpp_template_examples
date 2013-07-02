@@ -11,6 +11,7 @@
 #define WAIT_FOR_INPUT() while(std::cin.gcount() == 0) std::cin.get(); std::cin.get();
 #define ASSERT_MSG(cond, msg) if(cond) {PRINT_RED(msg); throw std::runtime_error("error");}
 #define PRINT_NAMED(x) std::cout << #x << " = " << x << std::endl; //#x changes the variable name into a string "x"
+#define PRINT_CALL(x) std::cout << #x << ": "; x; NEW_LINE()
 #define PRINT_RED(x) std::cout << "\033[1;31m" << x << "\033[0m" << std::endl; 
 #define PRINT_BLUE(x) std::cout << "\033[1;34m" << x << "\033[0m" << std::endl;
 #define PRINT_CYAN(x) std::cout << "\033[1;36m" << x << "\033[0m" << std::endl;
@@ -146,7 +147,7 @@ std::ostream & operator<<(std::ostream & os, chameleon_type const & b) {
 //  |                   main                            |
 //  +---------------------------------------------------+
 int main(int argc, char* argv[]) {
-    //NEEDS -std=c++0x for shared_ptr
+    //NEEDS -std=c++11 for shared_ptr
     CLR_SCR()
     PRINT_CYAN("press enter to continue")
     
@@ -155,12 +156,13 @@ int main(int argc, char* argv[]) {
     foo = 3.14;
     bar = "some_text";
     
-    WAIT_FOR_INPUT() //just hit the enter button to continue
+    WAIT_FOR_INPUT() //just hit the enter key to continue
     PRINT_NAMED(foo)
     PRINT_NAMED(bar)
     
-    double number = foo;
-    std::string string(bar);
+    WAIT_FOR_INPUT()
+    PRINT_CALL(double number = foo)
+    PRINT_CALL(std::string string(bar))
     
     WAIT_FOR_INPUT()
     PRINT_NAMED(number)

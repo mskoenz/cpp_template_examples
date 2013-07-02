@@ -130,7 +130,7 @@ struct super_mean_trait {
 
 //------------------- super mean template -------------------
 template<typename T, typename U>
-typename super_mean_trait<T, U>::type mean(T const & a, U const & b) {
+inline typename super_mean_trait<T, U>::type mean(T const & a, U const & b) {
     typedef typename super_mean_trait<T, U>::type return_type;
     PRINT_BLUE("mean was called with types " << TYPE(T) << " and " << TYPE(U) << ". ")
     PRINT_GREEN("The return type is " << TYPE(return_type))
@@ -139,26 +139,30 @@ typename super_mean_trait<T, U>::type mean(T const & a, U const & b) {
 
 //=================== my_type ===================
 //------------------- has "asymetic" double addition -------------------
-struct my_type {
-    my_type(): data(0) {
+struct my_double {
+    my_double(): data(0) {
     }
-    my_type(double const & in): data(in) {
+    my_double(double const & in): data(in) {
     }
     double data;
 };
+//------------------- my_double + my_double -------------------
+inline my_double operator+(my_double const & c, my_double const & d) {
+    return c.data + d.data;
+}
 
-//------------------- double + my_type is not equal to ... -------------------
-my_type operator+(double const & d, my_type const & c) {
+//------------------- double + my_double is not equal to ... -------------------
+inline my_double operator+(double const & d, my_double const & c) {
     return c.data + d;
 }
-//------------------- my_type + double -------------------
-double operator+(my_type const & c, double const & d) {
+//------------------- my_double + double -------------------
+inline double operator+(my_double const & c, double const & d) {
     return c.data + d;
 }
-my_type operator/(my_type const & c, double const & d) {
+inline my_double operator/(my_double const & c, double const & d) {
     return c.data/d;
 }
-std::ostream & operator<<(std::ostream & os, my_type const & c) {
+inline std::ostream & operator<<(std::ostream & os, my_double const & c) {
     os << c.data;
     return os;
 }
@@ -170,7 +174,7 @@ int main(int argc, char* argv[]) {
     CLR_SCR()
     PRINT_CYAN("press enter to continue")
     
-    WAIT_FOR_INPUT() //just hit the enter button to continue
+    WAIT_FOR_INPUT() //just hit the enter key to continue
     PRINT_NAMED(mean(1, 2))
     
     WAIT_FOR_INPUT()
@@ -192,10 +196,13 @@ int main(int argc, char* argv[]) {
     PRINT_NAMED(mean(1.8f, 2.0f))
     
     WAIT_FOR_INPUT()
-    PRINT_NAMED(mean(my_type(1), 2.0))
+    PRINT_NAMED(mean(my_double(1), my_double(2)))
 
-    WAIT_FOR_INPUT()
-    PRINT_NAMED(mean(2.0, my_type(1)))
+    //~ WAIT_FOR_INPUT()
+    //~ PRINT_NAMED(mean(2.0, my_double(1)))
+    
+    //~ WAIT_FOR_INPUT()
+    //~ PRINT_NAMED(mean(my_double(1), 2.0))
     
     return 0;
 }

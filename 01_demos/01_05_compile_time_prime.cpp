@@ -112,7 +112,10 @@ void no_main() { //;-)
     int const n = 100;
     
     //not optimal since it goes from 2 to n instead of going from n to 0
-    typedef typename m_for<m_int<2>, m_int<n>, increment, m_is_prime>::type result_type;
+    typedef typename m_for<m_int<2>
+                         , m_int<n>
+                         , increment
+                         , m_is_prime>::type result_type;
     
     result_type::foo; //for a compiletime error
 }

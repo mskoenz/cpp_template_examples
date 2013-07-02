@@ -1,6 +1,6 @@
 // Author:  Mario S. Könz <mskoenz@gmx.net>
-// Date:    26.06.2013 11:57:50 EDT
-// File:    01_04_runtime_prime.cpp
+// Date:    28.06.2013 22:46:04 EDT
+// File:    08_04_asserts.cpp
 
 //========= some macros for nicer presentation (not essential) =========
 //use as litte macros as possible in c++ (most stuff can be solved without)
@@ -17,41 +17,45 @@
 #define PRINT_GREEN(x) std::cout << "\033[1;32m" << x << "\033[0m" << std::endl;
 #define PRINT_YELLOW(x) std::cout << "\033[1;33m" << x << "\033[0m" << std::endl;
 #define PRINT_MAGENTA(x) std::cout << "\033[1;35m" << x << "\033[0m" << std::endl;
-//all the \033... cmd are bash specific. See http://www.cplusplus.com/forum/unices/36461/ for details
-
 //=================== includes ===================
 #include <iostream>
-#include <typeinfo>
+#include <assert.h>
+#include <stdexcept> //for runtime errors
 
-//=================== prime finder ===================
-bool is_prime(int nr) {
-    for(int i = 2; i < nr; ++i) {//not optimal, I know...sqrt(nr)
-        if(nr % i == 0)
-            return false;
-    }
-    return true;
+double read_fct() {
+    double res;
+    PRINT_GREEN("please enter a number: ")
+    std::cin >> res;
+    return res;
 }
 
 //  +---------------------------------------------------+
 //  |                   main                            |
 //  +---------------------------------------------------+
 int main(int argc, char* argv[]) {
-    CLR_SCR()
-    PRINT_CYAN("press enter to continue")
     
-    //~ int const n = 10;
-    int const n = 100;
+    //asserts from the <assert.h> header are very useful to make sure 
+    //the state of your program is actually the way you think it is
     
-    int res = 0;
-    for(int i = n; i > 2; --i) {
-        if(is_prime(i)) {
-            res = i;
-            break;
-        }
-        WAIT_FOR_INPUT() //just hit the enter key to continue
-        PRINT_RED(i << " is not prime")
-    }
-    WAIT_FOR_INPUT()
-    PRINT_GREEN(res << " is the biggest prime <= " << n)
+    //p could be a probability
+    double p = 0;
+    
+    //do whatever
+    p = read_fct();
+    
+    //since I know p is a probability, it should be between 0 and 1.
+    //an assert can check that and you don't loose performance because
+    //all asserts vanish if compiled with -DNDEBUG
+    assert(p >= 0 and p <= 1);
+    
+    //change the return in fct to see the fail
+    //leave the "fail" and compile with -DNDEBUG to disable the assert
+    
+    //IMPORTANT: if you turn off the assertion, you have no security anymore
+    //for critical checks use if and throw an error like this:
+    
+    if(p < 0 or p > 1)
+        throw std::runtime_error("p must be between 0 and 1");
+    
     return 0;
 }

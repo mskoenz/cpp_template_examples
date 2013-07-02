@@ -39,7 +39,6 @@ struct foo {
     typedef int size_type;
 };
 
-
 //  +---------------------------------------------------+
 //  |                   main                            |
 //  +---------------------------------------------------+
@@ -47,7 +46,7 @@ int main(int argc, char* argv[]) {
     CLR_SCR()
     PRINT_CYAN("press enter to continue")
     
-    WAIT_FOR_INPUT() //just hit the enter button to continue
+    WAIT_FOR_INPUT() //just hit the enter key to continue
     fct<foo>(10);
     
     WAIT_FOR_INPUT()

@@ -23,7 +23,7 @@
 #include <iostream>
 #include <typeinfo>
 #include <boost/type_traits.hpp>
-#include <boost/utility/enable_if.hpp> //enable_if is now part c++0x
+#include <boost/utility/enable_if.hpp> //enable_if is now part c++11
 
 //=================== a fct with enable if ===================
 //enable_if<cond, T>::type will be T if cond == true and fail 
@@ -60,7 +60,7 @@ int main(int argc, char* argv[]) {
     CLR_SCR()
     PRINT_CYAN("press enter to continue")
     
-    WAIT_FOR_INPUT() //just hit the enter button to continue
+    WAIT_FOR_INPUT() //just hit the enter key to continue
     fct(foo());
     
     WAIT_FOR_INPUT()

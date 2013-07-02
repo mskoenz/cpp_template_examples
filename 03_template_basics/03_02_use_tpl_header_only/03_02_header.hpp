@@ -5,7 +5,7 @@
 #ifndef __03_01_HEADER_HEADER
 #define __03_01_HEADER_HEADER
 
-#define TYPE(T) typeid(T).name()
+
 #include <typeinfo>
 #include <iostream>
 
@@ -19,7 +19,7 @@ public:
 template<typename T>
 struct my_template {
     void print() {
-        std::cout << "my_template<" << TYPE(T) << ">::print()" << std::endl;
+        std::cout << "my_template<" << typeid(T).name() << ">::print()" << std::endl;
     }
 };
 

@@ -162,6 +162,7 @@ class random_class {
         const short int shift;  ///< shows, what operations are needed (for speedup. Tested!)
         uint64_t seed_; ///< the used seed
 };
+
 //  +---------------------------------------------------+
 //  |                   main                            |
 //  +---------------------------------------------------+
