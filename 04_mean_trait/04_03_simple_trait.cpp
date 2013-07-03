@@ -40,8 +40,8 @@ struct mean_trait<int> {
 //=================== mean template attempt 2 ===================
 template<typename T>
 inline typename mean_trait<T>::type mean(T const & a, T const & b) {
-    PRINT_YELLOW
-    ("mean fct version " << TYPE(T) << " with arg " << a << " and " << b);
+    PRINT_YELLOW("mean fct version " << TYPE(T) << 
+                 " with arg " << a << " and " << b);
     return (a + b) / 2.0;
 }
 

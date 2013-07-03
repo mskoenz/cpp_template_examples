@@ -26,7 +26,7 @@
 //follows (T) is a type.
 template<typename T>
 struct my_template {
-    typedef int int_type;
+    typedef T type;
 };
 
 //second: to extract types that are inside a template struct/class and 
@@ -34,7 +34,7 @@ struct my_template {
 //basically the following pattern ....<T>...::some_type
 template<typename T>
 struct my_second_template {
-    typedef typename my_template<T>::int_type second_int_type;
+    typedef typename my_template<T>::type second_type;
     //i need typename here because int_type is inside a struct that depends
     //on the template parameter T. Just remove typename to see the error
 };
@@ -46,10 +46,10 @@ int main(int argc, char* argv[]) {
     
     //no need for typename here, since there is no unknown T-dependency
     //T==int an all is good :-)
-    my_template<int>::int_type nr1 = 0;
+    my_template<int>::type nr1 = 0;
     
     //same here
-    my_second_template<int>::second_int_type nr2 = 0;
+    my_second_template<int>::second_type nr2 = 0;
     
     PRINT_GREEN(nr1)
     PRINT_GREEN(nr2)

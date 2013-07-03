@@ -57,7 +57,7 @@ int main(int argc, char* argv[]) {
     print<int>(d); //call with given type
     
     WAIT_FOR_INPUT()
-    print(mean<double>(1, 2)); //we have to pass T (the compiler 
+    print( mean<double>(1, 2) ); //we have to pass T (the compiler 
     //cannot guess what T is), but U (=int) is deducible again
     
     return 0;

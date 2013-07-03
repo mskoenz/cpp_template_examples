@@ -26,7 +26,8 @@
 //=================== mean template attempt 1 ===================
 template<typename T>
 inline T mean(T const & a, T const & b) {
-    PRINT_YELLOW("mean fct version " << TYPE(T) << " with arg " << a << " and " << b);
+    PRINT_YELLOW("mean fct version " << TYPE(T) <<
+                 " with arg " << a << " and " << b);
     return (a + b) / 2.0;
 }
 

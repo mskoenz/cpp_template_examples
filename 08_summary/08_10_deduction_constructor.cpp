@@ -40,11 +40,13 @@ inline std::pair<T, U> make_pair(T const & t, U const & u) {
 int main(int argc, char* argv[]) {
     //NEEDS c++11 for auto at the bottom
     PRINT_CYAN("press enter to continue")
-    
-     
-    std::pair<int, int> p1(1, 2);
-    
     WAIT_FOR_INPUT()//just hit the enter key to continue
+    
+    std::pair<int, int> p1(1, 2);
+    //~ std::pair p1(1, 2) //doesn't work, but why exactly?
+    //functions can deduce the types...
+    p1 = make_pair(1, 1);
+    
     print_pair(p1); //deduction is no problem
     
     WAIT_FOR_INPUT()
@@ -74,7 +76,7 @@ int main(int argc, char* argv[]) {
     WAIT_FOR_INPUT()
     //Why you want c++11:
     
-    //auto deduced the type that return from a function
+    //auto deduces the type that is returned from a function
     //we never have to write std::pair<double ,std::string>
     auto p2 = std::make_pair(1.2, "text");
     print_pair(p2);

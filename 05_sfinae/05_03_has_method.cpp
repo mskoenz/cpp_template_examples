@@ -24,7 +24,7 @@
 #include <typeinfo>
 
 //============ trait to figure out if T::print() exists ============
-template<typename T> 
+template<typename T>
 struct has_print_method {
     
     template<void(T::*)(void)> //specify the exact signature here
@@ -74,7 +74,8 @@ int main(int argc, char* argv[]) {
     PRINT_GREEN("every method (with exact signature) can be found");
     
     //~ PRINT_NAMED(has_method<int>::value);
-    //doesn't work because &int:: is illegal
+    //doesn't work because &int:: is illegal and illegal code shouldn't be
+    //in a struct-"body"
     //one would first to check if it is a class 
     //after checking for method (enable_if(is_class<...>)) see 05_04
     

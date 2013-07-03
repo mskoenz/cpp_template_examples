@@ -22,6 +22,7 @@
 #include <typeinfo>
 
 namespace example {
+    template<typename T>
     struct my_struct {
         
     };
@@ -50,7 +51,7 @@ int main(int argc, char* argv[]) {
     
     //the names are mostly short, but for custom types it will use 
     //scope::class_name as name (+ some numbers and markers)
-    PRINT_RED( typeid(example::my_struct).name() )
+    PRINT_RED( typeid(example::my_struct<int>).name() )
     
     //you can "store" the type during runtime using typeid()
     

@@ -39,8 +39,8 @@ struct use_double_identifier<double> {
     enum {value = true}; //doesn't matter if true or false
 };
 
-//=================== mean_trait_chooser ===================
-template<bool cond, typename T, typename F>
+//=================== meta_if ===================
+template<bool cond, typename T, typename F> //default true
 struct meta_if {
     typedef T type;
 };
@@ -64,8 +64,8 @@ struct better_mean_trait {
 //=================== mean template attempt 3 ===================
 template<typename T>
 inline typename better_mean_trait<T>::type mean(T const & a, T const & b) {
-    PRINT_YELLOW
-    ("mean fct version " << TYPE(T) << " with arg " << a << " and " << b);
+    PRINT_YELLOW("mean fct version " << TYPE(T) << 
+                 " with arg " << a << " and " << b);
     return (a + b) / 2.0;
 }
 

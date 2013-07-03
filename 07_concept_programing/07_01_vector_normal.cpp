@@ -57,6 +57,7 @@ public:
 private:
     std::vector<T> vec_;
 };
+//------------------- just the print function -------------------
 template<typename T>
 std::ostream & operator<<(std::ostream & os, my_vector<T> const & arg) {
     os << "[";

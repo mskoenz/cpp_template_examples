@@ -15,7 +15,7 @@ public:
         return array_[index];
     }
     T const & operator[](size_type const & index) const { 
-    //you always need two access operators, one const and the other normal
+    //you almost ever need two access operators, one const and the other normal
         assert(index >= 0 and index < N);
         return array_[index];
     }
@@ -27,7 +27,9 @@ private:
 };
 
 //demonstration of default arguments
-template<typename T = int, typename U = int, bool b = false>
+template< typename T = int
+        , typename U = int
+        , bool     b = false>
 struct default_template {
     //does nothing...
 };

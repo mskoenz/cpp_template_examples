@@ -49,13 +49,13 @@ int main(int argc, char* argv[]) {
     PRINT_CYAN("press enter to continue")
     
     WAIT_FOR_INPUT() //just hit the enter key to continue
-    PRINT_NAMED(mean(1, 2))
+    PRINT_NAMED( mean(1, 2) )
     
     WAIT_FOR_INPUT()
-    PRINT_NAMED(mean(1.8, 2.0))
+    //~ PRINT_NAMED( mean(1.8, 2.0) )
     
     WAIT_FOR_INPUT()
-    PRINT_NAMED(mean(1.8l, 2.0l))
+    //~ PRINT_NAMED( mean(1.8l, 2.0l) )
     
     WAIT_FOR_INPUT()
     //~ PRINT_RED("        sizeof(int) =  " << sizeof(int) << " bytes")

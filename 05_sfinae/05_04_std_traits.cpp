@@ -38,6 +38,7 @@ typename boost::disable_if<boost::has_plus<T>, void>::type fct(T const & t) {
     PRINT_RED("fct for " << TYPE(T) << " without +")
 }
 //if there is only one parameter, put enable_if on the return type
+//you cannot wrap the first parameter with enable_if bc of deduction
 //=================== some types ===================
 struct foo {};
 

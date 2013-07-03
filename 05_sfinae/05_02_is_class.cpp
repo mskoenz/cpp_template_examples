@@ -49,7 +49,7 @@ enum baz_enum {
 };
 
 template<typename T>
-void class_check(T t) {
+void class_check(T const & t) {
     if(is_class<T>::value)
         PRINT_YELLOW(TYPE(T) << " is a class-type")
     else
