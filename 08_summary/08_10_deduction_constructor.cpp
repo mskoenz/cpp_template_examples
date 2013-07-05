@@ -34,6 +34,7 @@ inline std::pair<T, U> make_pair(T const & t, U const & u) {
     return std::pair<T, U>(t, u);
 }
 
+
 //  +---------------------------------------------------+
 //  |                   main                            |
 //  +---------------------------------------------------+
@@ -78,8 +79,8 @@ int main(int argc, char* argv[]) {
     
     //auto deduces the type that is returned from a function
     //we never have to write std::pair<double ,std::string>
-    auto p2 = std::make_pair(1.2, "text");
-    print_pair(p2);
+    auto p2 = 4;
+    //~ print_pair(p2);
     
     return 0;
 }

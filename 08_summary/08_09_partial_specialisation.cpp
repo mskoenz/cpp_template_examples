@@ -41,19 +41,20 @@ int main(int argc, char* argv[]) {
     
      
     WAIT_FOR_INPUT()//just hit the enter key to continue
-    std::pair<int   , int   > p1(1  , 2  );
+    //~ std::pair<int, int> p1(1, 2);
+    auto p1 = std::make_pair(1, 2);
     print_pair(p1); //the specialisation is used
     
     WAIT_FOR_INPUT()
-    std::pair<double, int   > p2(3.1, 4  );
+    auto p2 = std::make_pair(3.1, 4);
     print_pair(p2);
     
     WAIT_FOR_INPUT()
-    std::pair<int   , double> p3(5  , 6.1);
+    auto p3 = std::make_pair(5, 6.1);
     print_pair(p3); //the specialisation is used
     
     WAIT_FOR_INPUT()
-    std::pair<double, double> p4(7.1, 8.1);
+    auto p4 = std::make_pair(7.1, 8.1);
     print_pair(p4);
     
     return 0;

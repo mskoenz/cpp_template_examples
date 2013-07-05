@@ -26,14 +26,14 @@
 //============ trait to figure out if T::print() exists ============
 template<typename T>
 struct has_print_method {
-    
+
     template<void(T::*)(void)> //specify the exact signature here
-    struct helper {
+    struct wrap {
         typedef int type;
     };
     
     template<typename U>
-    static char check(typename helper<&U::print>::type); //name of method
+    static char check(typename wrap<&U::print>::type); //name of method
     template<typename U>
     static double check(...);
     
@@ -73,9 +73,9 @@ int main(int argc, char* argv[]) {
     WAIT_FOR_INPUT()
     PRINT_GREEN("every method (with exact signature) can be found");
     
-    //~ PRINT_NAMED(has_method<int>::value);
-    //doesn't work because &int:: is illegal and illegal code shouldn't be
-    //in a struct-"body"
+    //~ PRINT_NAMED(has_print_method<int>::value);
+    //doesn't work because &int:: is illegal in template<void(T::*)(void)>
+    //this doesn't work under sfinae...
     //one would first to check if it is a class 
     //after checking for method (enable_if(is_class<...>)) see 05_04
     

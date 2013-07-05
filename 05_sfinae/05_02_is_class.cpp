@@ -33,6 +33,7 @@ struct is_class {
     //and NULL is convertable to the method-pointer
     template<typename U>
     static char check(void(U::*)());
+    
     template<typename U>
     static double check(...); //just catch anything else (variadic function)
     

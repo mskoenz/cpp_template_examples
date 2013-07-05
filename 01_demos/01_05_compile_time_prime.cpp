@@ -51,7 +51,7 @@ struct m_if<false, IfTrue, IfFalse> {
     typedef IfFalse type;
 };
 
-//------------------- if-recursion -------------------
+//------------------- for-recursion -------------------
 template< typename Index
         , typename Max
         , bool Cond

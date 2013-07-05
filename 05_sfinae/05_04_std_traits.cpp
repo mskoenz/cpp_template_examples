@@ -25,16 +25,25 @@
 #include <boost/type_traits.hpp>
 #include <boost/utility/enable_if.hpp> //enable_if is now part c++11
 
+template<bool cond, typename T>
+struct enable_if {
+};
+template<typename T>
+struct enable_if<true, T> {
+    typedef T type;
+};
+
+
 //=================== a fct with enable if ===================
 //enable_if<cond, T>::type will be T if cond == true and fail 
 //if cond == false. disable_if does the opposite
 template<typename T>
-typename boost::enable_if<boost::has_plus<T>, void>::type fct(T const & t) {
+typename enable_if<boost::has_plus<T>::value, void>::type fct(T const & t) {
     PRINT_YELLOW("fct for " << TYPE(T) << " with +")
     t + t;
 }
 template<typename T>
-typename boost::disable_if<boost::has_plus<T>, void>::type fct(T const & t) {
+typename enable_if<!boost::has_plus<T>::value, void>::type fct(T const & t) {
     PRINT_RED("fct for " << TYPE(T) << " without +")
 }
 //if there is only one parameter, put enable_if on the return type

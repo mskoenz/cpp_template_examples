@@ -29,11 +29,13 @@ template<typename T>
 void fct(typename T::size_type t) {
     PRINT_YELLOW(TYPE(T) << " has size_type")
 }
+
 //doesn't work for foo bc the argument given is 10 and not convertable to foo
 template<typename T>
 void fct(T t) {
     PRINT_RED(TYPE(T) << " has no size_type")
 }
+
 //============== a type that has a typedef size_type ==============
 struct foo {
     typedef int size_type;
@@ -47,7 +49,7 @@ int main(int argc, char* argv[]) {
     PRINT_CYAN("press enter to continue")
     
     WAIT_FOR_INPUT() //just hit the enter key to continue
-    fct<foo>(10);
+    fct<foo>(10); //no deduction, that why the <> are needed
     
     WAIT_FOR_INPUT()
     fct<int>(10);

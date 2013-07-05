@@ -33,6 +33,7 @@ struct use_double_identifier {
     
     enum {value = (sizeof(check((t+t)/double(1))) == sizeof(double))};
 };
+
 //------------------- full specialisation -------------------
 template<>
 struct use_double_identifier<double> {
@@ -92,7 +93,7 @@ int main(int argc, char* argv[]) {
     PRINT_NAMED(mean(1.8, 2.0))
     
     WAIT_FOR_INPUT()
-    PRINT_NAMED(mean(1.8l, 2.0l))
+    PRINT_NAMED(typeid(mean(1.8l, 2.0l)).name())
     
     WAIT_FOR_INPUT()
     PRINT_NAMED(mean(1u, 2u))

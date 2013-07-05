@@ -1,6 +1,6 @@
 // Author:  Mario S. Könz <mskoenz@gmx.net>
-// Date:    02.07.2013 15:30:57 EDT
-// File:    08_08_full_specialisation.cpp
+// Date:    05.07.2013 14:43:55 EDT
+// File:    05_02_has_type.cpp
 
 //========= some macros for nicer presentation (not essential) =========
 //use as litte macros as possible in c++ (most stuff can be solved without)
@@ -17,44 +17,59 @@
 #define PRINT_GREEN(x) std::cout << "\033[1;32m" << x << "\033[0m" << std::endl;
 #define PRINT_YELLOW(x) std::cout << "\033[1;33m" << x << "\033[0m" << std::endl;
 #define PRINT_MAGENTA(x) std::cout << "\033[1;35m" << x << "\033[0m" << std::endl;
+//all the \033... cmd are bash specific. See http://www.cplusplus.com/forum/unices/36461/ for details
+
 //=================== includes ===================
 #include <iostream>
+#include <typeinfo>
+#include <vector>
 
-//note: I use functions here, but this is a template effect
-//      It has nothing todo with overloading
-
-//------------------- templated print fct -------------------
+//=================== sidenote ===================
+template<typename T, typename S = typename T::size_type> //is legal
+struct my_template {
+};
+//=================== has_size_type ===================
 template<typename T>
-void print(T const & t) {
-    PRINT_GREEN(t);
-}
+struct has_size_type {
+    
+    template<typename U>
+    static char check(typename U::size_type * i);
+    
+    template<typename U>
+    static double check(...);
+    
+    enum {value = (sizeof(check<T>(NULL)) == sizeof(char))};
+};
+//============== a type that has a typedef size_type ==============
+struct foo {
+    typedef int size_type;
+};
 
-//------------------- full specialisation for int -------------------
-//note: fully specialized templates get instantiaced regardless if needed.
-template<>
-void print<int>(int const & t) {
-    PRINT_RED("integers cannot be printed")
-}
+struct bar {
+    
+};
 
 //  +---------------------------------------------------+
 //  |                   main                            |
 //  +---------------------------------------------------+
 int main(int argc, char* argv[]) {
+    CLR_SCR()
     PRINT_CYAN("press enter to continue")
     
-    int i = 10;
-    double d = 3.14;
-    std::string s = "hello world";
-     
-    WAIT_FOR_INPUT()//just hit the enter key to continue
-    print(i); //the specialisation is used
+    WAIT_FOR_INPUT() //just hit the enter key to continue
+    PRINT_NAMED(has_size_type<bar>::value)
     
     WAIT_FOR_INPUT()
-    print(s);
+    PRINT_NAMED(has_size_type<foo>::value)
     
     WAIT_FOR_INPUT()
-    print(d);
+    PRINT_NAMED(has_size_type<int>::value)
+    
+    WAIT_FOR_INPUT()
+    PRINT_NAMED(has_size_type<std::vector<int>>::value)
+    
+    WAIT_FOR_INPUT()
+    PRINT_GREEN("we can find out if a type contains a typedef")
     
     return 0;
 }
-
